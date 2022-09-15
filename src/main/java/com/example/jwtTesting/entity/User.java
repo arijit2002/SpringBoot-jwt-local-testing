@@ -28,6 +28,19 @@ public class User {
 	)
 	private Set<Role> role;
 
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(String userName, String userPassword, Set<Role> role) {
+		super();
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.role = role;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
