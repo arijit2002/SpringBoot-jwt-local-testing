@@ -32,15 +32,16 @@ public class WebSecurityConfiguration {
 	private UserDetailsService jwtService;
 	
 	@Bean
-	public AuthenticationManager authenticationManager(
-	        AuthenticationConfiguration authConfig) throws Exception {
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 	    return authConfig.getAuthenticationManager();
 	}
 	
+	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
 		httpSecurity.cors();
 		httpSecurity.csrf().disable()
-			.authorizeRequests().antMatchers("").permitAll()
+			.authorizeRequests()
+			.antMatchers("/authenticate","/registerNewUser").permitAll()
 			.antMatchers(org.springframework.http.HttpHeaders.ALLOW).permitAll()
 			.anyRequest().authenticated()
 			.and()
@@ -51,7 +52,6 @@ public class WebSecurityConfiguration {
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		
 		return httpSecurity.build();
-		
 	}
 	
 	@Bean

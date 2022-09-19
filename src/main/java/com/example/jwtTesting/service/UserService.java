@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.jwtTesting.dao.RoleDao;
@@ -19,6 +20,9 @@ public class UserService {
 	
 	@Autowired
 	private RoleDao roleDao;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public User registerNewUser(User user) {
 		return userDao.save(user);
@@ -37,7 +41,7 @@ public class UserService {
 		
 		User adminUser = new User();
 		adminUser.setUserName("Arijit");
-		adminUser.setUserPassword("admin123");
+		adminUser.setUserPassword(getEncodedPassword("arijit@123"));
 		Set<Role> adminRoles = new HashSet<>();
 		adminRoles.add(adminRole);
 		adminUser.setRole(adminRoles);
@@ -45,10 +49,14 @@ public class UserService {
 		
 		User user = new User();
 		user.setUserName("Das");
-		user.setUserPassword("Das123");
+		user.setUserPassword(getEncodedPassword("das@123"));
 		Set<Role> userRoles = new HashSet<>();
 		userRoles.add(userRole);
 		user.setRole(userRoles);
 		userDao.save(user);
+	}
+	
+	public String getEncodedPassword(String password) {
+		return passwordEncoder.encode(password);
 	}
 }
