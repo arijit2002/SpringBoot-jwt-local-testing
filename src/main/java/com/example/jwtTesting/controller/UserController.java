@@ -31,12 +31,18 @@ public class UserController {
 	@GetMapping({"/forAdmin"})
 	@PreAuthorize("hasRole('Admin')")
 	public String forAdmin() {
-		return "Only for admin";
+		return "Only for admin ";
 	}
 	
 	@GetMapping({"/forUser"})
 	@PreAuthorize("hasRole('User')")
 	public String forUser() {
 		return "Only for users";
+	}
+	
+	@GetMapping({"/forUserAdmin"})
+	@PreAuthorize("hasAnyRole('Admin','User')")
+	public String forUSerAdmin() {
+		return "For User and Admin Both";
 	}
 }

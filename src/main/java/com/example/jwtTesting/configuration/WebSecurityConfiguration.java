@@ -42,6 +42,7 @@ public class WebSecurityConfiguration {
 		httpSecurity.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/authenticate","/registerNewUser").permitAll()
+			//.antMatchers("/forUserAdmin").hasAnyRole("Admin","User")
 			.antMatchers(org.springframework.http.HttpHeaders.ALLOW).permitAll()
 			.anyRequest().authenticated()
 			.and()
