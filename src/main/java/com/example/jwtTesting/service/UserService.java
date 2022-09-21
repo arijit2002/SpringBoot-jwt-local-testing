@@ -1,5 +1,6 @@
 package com.example.jwtTesting.service;
 
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,8 +34,13 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
-	public User findUser(String name) {
-		return null;
+	public String findUser(String token) {
+		String[] divs = token.split("\\.");
+		String payload = divs[1];
+		byte[] decodedBytes = Base64.getDecoder().decode(payload);
+		String decodedString = new String(decodedBytes);
+		System.out.println(decodedString);
+		return "User only";
 		
 	}
 	
