@@ -33,6 +33,11 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
+	public User findUser(String name) {
+		return null;
+		
+	}
+	
 	public void initRolesAndUser() {
 		Role adminRole = new Role();
 		adminRole.setRoleName("Admin");

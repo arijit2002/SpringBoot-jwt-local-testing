@@ -1,12 +1,17 @@
 package com.example.jwtTesting.controller;
 
+import java.net.InetSocketAddress;
+import java.util.Base64;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jwtTesting.entity.User;
@@ -36,8 +41,14 @@ public class UserController {
 	
 	@GetMapping({"/forUser"})
 	@PreAuthorize("hasRole('User')")
-	public String forUser() {
-		return "Only for users";
+	public String forUser(@RequestHeader(value = "Authorization") String authHeader) {
+		String token = authHeader.substring(7);
+		String[] divs = token.split("\\.");
+		String payload = divs[1];
+		byte[] decodedBytes = Base64.getDecoder().decode(payload);
+		String decodedString = new String(decodedBytes);
+		System.out.println(decodedString);
+		return "Only for users \n";
 	}
 	
 	@GetMapping({"/forUserAdmin"})
