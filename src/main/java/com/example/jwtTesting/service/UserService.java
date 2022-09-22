@@ -34,14 +34,19 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
-	public String findUser(String token) {
+	public String findUser(String token,String name) {
 		String[] divs = token.split("\\.");
-		String payload = divs[1];
+		String payload = divs[1];String codes="\"";
 		byte[] decodedBytes = Base64.getDecoder().decode(payload);
 		String decodedString = new String(decodedBytes);
-		System.out.println(decodedString);
-		return "User only";
-		
+		String test=decodedString.substring(8);
+		//System.out.println(test);
+		String validUser = test.substring(0,test.indexOf(codes));
+		if(validUser.equals(name)) {
+			return "Yes, Valid User";
+		}else {
+			return "Not allowed, Invalid User";
+		}
 	}
 	
 	public void initRolesAndUser() {
