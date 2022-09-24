@@ -12,9 +12,13 @@ import com.example.jwtTesting.dao.RoleDao;
 import com.example.jwtTesting.dao.UserDao;
 import com.example.jwtTesting.entity.Role;
 import com.example.jwtTesting.entity.User;
+import com.example.jwtTesting.util.JwtUtil;
 
 @Service
 public class UserService {
+	
+	@Autowired
+	private JwtUtil jwtUtil;
 	
 	@Autowired
 	private UserDao userDao;
@@ -34,15 +38,16 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
-	public String findUser(String token,String name) {
-		String[] divs = token.split("\\.");
-		String payload = divs[1];String codes="\"";
-		byte[] decodedBytes = Base64.getDecoder().decode(payload);
-		String decodedString = new String(decodedBytes);
-		String test=decodedString.substring(8);
-		//System.out.println(test);
-		String validUser = test.substring(0,test.indexOf(codes));
-		if(validUser.equals(name)) {
+	public String validateUser(String token,String name) {
+//		String[] divs = token.split("\\.");
+//		String payload = divs[1];String codes="\"";
+//		byte[] decodedBytes = Base64.getDecoder().decode(payload);
+//		String decodedString = new String(decodedBytes);
+//		String test=decodedString.substring(8);
+//		String validUser = test.substring(0,test.indexOf(codes));
+//		System.out.println(validUser);
+		System.out.println(jwtUtil.getUserNameFromToken(token));
+		if(jwtUtil.getUserNameFromToken(token).equals(name)) {
 			return "Yes, Valid User";
 		}else {
 			return "Not allowed, Invalid User";

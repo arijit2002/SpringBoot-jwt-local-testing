@@ -63,7 +63,7 @@ public class UserController {
 	@PreAuthorize("hasAnyRole('User')")
 	public String onlySpecificUser(@RequestHeader(value = "Authorization") String authHeader, @RequestParam String name) {
 		String token = authHeader.substring(7);
-		return userService.findUser(token,name);
+		return userService.validateUser(token,name);
 	}
 	
 }
