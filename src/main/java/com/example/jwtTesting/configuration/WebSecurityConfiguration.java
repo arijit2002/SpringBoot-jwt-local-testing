@@ -41,7 +41,7 @@ public class WebSecurityConfiguration {
 		httpSecurity.cors();
 		httpSecurity.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/authenticate","/registerNewUser").permitAll()
+			.antMatchers("/authenticate","/registerNewUser","/test").permitAll()
 			//.antMatchers("/forUserAdmin").hasAnyRole("Admin","User")
 			.antMatchers(org.springframework.http.HttpHeaders.ALLOW).permitAll()
 			.anyRequest().authenticated()
