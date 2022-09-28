@@ -27,7 +27,7 @@ public class JwtController {
 	}
 	
 	@GetMapping({"/test"})
-	public String test(HttpServletRequest request) {
+	public void test(HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");  
 	    if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
 	        ip = request.getHeader("Proxy-Client-IP");  
@@ -62,6 +62,6 @@ public class JwtController {
 	    if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
 	        ip = request.getRemoteAddr();  
 	    }  
-	    return ip;
+	    System.out.println(ip);
 	}
 }
