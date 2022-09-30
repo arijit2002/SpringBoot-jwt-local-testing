@@ -1,6 +1,7 @@
 package com.example.jwtTesting.controller;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,7 +44,8 @@ public class UserController {
 	
 	@GetMapping({"/forUser"})
 	@PreAuthorize("hasRole('User')")
-	public String forUser() {
+	public String forUser(HttpServletRequest request) {
+		System.out.println(request.getUserPrincipal());
 		return "For Users Only";
 	}
 	
