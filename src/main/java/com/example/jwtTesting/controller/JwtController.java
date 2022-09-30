@@ -32,6 +32,10 @@ public class JwtController {
 	
 	@GetMapping({"/test"})
 	public void test(HttpServletRequest request) {
+		
+		//StringBuffer url=request.getRequestURL();
+		//String uri=request.getRequestURI();
+		
 		String ip=ipService.ipTrace(request);
 	    System.out.println(ip);
 	}
