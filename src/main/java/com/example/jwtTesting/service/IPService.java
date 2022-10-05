@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class IPService {
 	
+	// get ip address of the client
 	public String ipTrace(HttpServletRequest request) {
-		
 		String ip = request.getHeader("X-Forwarded-For");  
 	    if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
 	        ip = request.getHeader("Proxy-Client-IP");  
@@ -44,6 +44,5 @@ public class IPService {
 	        ip = request.getRemoteAddr();  
 	    }
 		return ip;
-		
 	}
 }
