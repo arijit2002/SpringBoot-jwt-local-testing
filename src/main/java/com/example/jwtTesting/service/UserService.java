@@ -29,6 +29,7 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	// register a new user
 	public User registerNewUser(User user) {
 		Role role = roleDao.findById("User").get();
 		Set<Role> roles = new HashSet<>();
@@ -38,6 +39,7 @@ public class UserService {
 		return userDao.save(user);
 	}
 	
+	// validate a user
 	public String validateUser(String token,String name) {
 //		String[] divs = token.split("\\.");
 //		String payload = divs[1];String codes="\"";
@@ -54,6 +56,7 @@ public class UserService {
 		}
 	}
 	
+	// creating 2 new roles at the start of the project and registering a user with Admin role
 	public void initRolesAndUser() {
 		Role adminRole = new Role();
 		adminRole.setRoleName("Admin");
