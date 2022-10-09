@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CookieService {
 	
-	public void createCookie(HttpServletRequest request,HttpServletResponse response,String key,String value) 
+	public void createCookie(HttpServletResponse response,String key,String value) 
 			throws ServletException, IOException{
 		
 		Cookie prefer = new Cookie(key,value);
